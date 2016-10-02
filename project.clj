@@ -27,7 +27,9 @@
                  [org.clojure/tools.cli "0.3.5"]
                  [luminus-nrepl "0.1.4"]
                  [org.webjars/webjars-locator-jboss-vfs "0.1.0"]
-                 [luminus-immutant "0.2.2"]]
+                 [luminus-immutant "0.2.2"]
+                 [ring-cors "0.1.7"]
+                 [metosin/compojure-api "1.1.8"]]
 
   :min-lein-version "2.0.0"
 
@@ -47,7 +49,7 @@
    :nrepl-port 7002
    :css-dirs ["resources/public/css"]
    :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
-  
+
 
   :profiles
   {:uberjar {:omit-source true
@@ -63,8 +65,8 @@
                  :pretty-print false
                  :closure-warnings
                  {:externs-validation :off :non-standard-jsdoc :off}}}}}
-             
-             
+
+
              :aot :all
              :uberjar-name "owlet-status.jar"
              :source-paths ["env/prod/clj"]
@@ -97,9 +99,9 @@
                       :source-map true
                       :optimizations :none
                       :pretty-print true}}}}
-                  
-                  
-                  
+
+
+
                   :doo {:build "test"}
                   :source-paths ["env/dev/clj" "test/clj"]
                   :resource-paths ["env/dev/resources"]
@@ -115,8 +117,8 @@
                      {:output-to "target/test.js"
                       :main "owlet-status.doo-runner"
                       :optimizations :whitespace
-                      :pretty-print true}}}}
-                  
-                  }
+                      :pretty-print true}}}}}
+
+
    :profiles/dev {}
    :profiles/test {}})

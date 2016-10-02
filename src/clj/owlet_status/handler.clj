@@ -2,6 +2,7 @@
   (:require [compojure.core :refer [routes wrap-routes]]
             [owlet-status.layout :refer [error-page]]
             [owlet-status.routes.home :refer [home-routes]]
+            [owlet-status.routes.api :refer [api-routes]]
             [compojure.route :as route]
             [owlet-status.env :refer [defaults]]
             [mount.core :as mount]
@@ -13,6 +14,9 @@
 
 (def app-routes
   (routes
+    (->
+      #'api-routes
+      (wrap-routes middleware/wrap-formats))
     (-> #'home-routes
         (wrap-routes middleware/wrap-csrf)
         (wrap-routes middleware/wrap-formats))
