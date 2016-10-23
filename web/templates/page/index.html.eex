@@ -1,0 +1,5 @@
+<div class="jumbotron">
+  <%= for status_code <- @status_codes do %>
+    <p><%= status_code %></p>
+  <% end %>
+</div>
