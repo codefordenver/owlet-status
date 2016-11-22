@@ -1,5 +1,6 @@
-<div class="jumbotron">
-  <%= for status_code <- @status_codes do %>
-    <p><%= status_code %></p>
+<div>
+  <h4>Owlet Services Statuses</h4>
+  <%= for response <- @responses do %>
+    <p><%= Keyword.get(response, :endpoint) %>: <%= Keyword.get(response, :status_code) %></p>
   <% end %>
 </div>

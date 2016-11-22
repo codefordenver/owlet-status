@@ -17,11 +17,19 @@ defmodule Web.PageController do
   ]
 
   def index(conn, _params) do
-    status_codes = Enum.map(@endpoints, fn endpoint -> 
-      Ping.get(endpoint, [stream_to: self]).status_code
+    tasks = Enum.map(@endpoints, fn endpoint ->
+      task = Task.async(fn -> Ping.get(endpoint) end)
+      [{:task, task}, {:endpoint, endpoint}]
+    end)
+    responses = Enum.map(tasks, fn task ->
+      response = Task.await(Keyword.get(task, :task))
+      [
+       {:status_code, response.status_code},
+       {:endpoint, Keyword.get(task, :endpoint)}
+      ]
     end)
     conn
-    |> assign(:status_codes, status_codes)
+    |> assign(:responses, responses)
     |> render "index.html"
   end
 end
